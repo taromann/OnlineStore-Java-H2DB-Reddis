@@ -15,45 +15,39 @@ import java.util.stream.Collectors;
 public class PayPalService {
     private final OrderService orderService;
 
-    //сборка заказа - идея метода в преобразовании нашего заказа в тот что понимает PayPal
     @Transactional
     public OrderRequest createOrderRequest(Long orderId) {
-        //по заказу формируем запрос к paypal
-
         com.github.assemblathe1.core.entities.Order order = orderService
                 .findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Заказ не найден"));
-        //формируем запрос на создание заказа на paypal
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
-        //указываем детали приложения
         ApplicationContext applicationContext = new ApplicationContext()
-                .brandName("Spring Web Market") //название приложения
-                .landingPage("BILLING")//как выглядит страничка для ввода данных
-                .shippingPreference("SET_PROVIDED_ADDRESS");//детали доставки (юзер указывает)
-        orderRequest.applicationContext(applicationContext);//подшивает инфу о приложении в наш запрос
+                .brandName("Spring Web Market")
+                .landingPage("BILLING")
+                .shippingPreference("SET_PROVIDED_ADDRESS");
+        orderRequest.applicationContext(applicationContext);
 
-        List<PurchaseUnitRequest> purchaseUnitRequests = new ArrayList<>();//единицы покупок (что то типа cartItem) - формируем список
+        List<PurchaseUnitRequest> purchaseUnitRequests = new ArrayList<>();
         PurchaseUnitRequest purchaseUnitRequest = new PurchaseUnitRequest()
-                .referenceId(orderId.toString()) // к какому заказу они относятся
-                .description("Spring Web Market Order") //описание продукта
+                .referenceId(orderId.toString())
+                .description("Spring Web Market Order")
                 .amountWithBreakdown(new AmountWithBreakdown().currencyCode("USD").value(String.valueOf(order.getTotalPrice()))
-                        .amountBreakdown(new AmountBreakdown().itemTotal(new Money().currencyCode("USD").value(String.valueOf(order.getTotalPrice()))))) // сумма платежа в рублях
-                .items(order.getItems().stream()// достаем из заказа orderItem-ы
-                        .map(orderItem -> new Item() //преобразуем в Item, которые понимает PayPal
-                                .name(orderItem.getProduct().getTitle()) // название продукта
-                                .unitAmount(new Money().currencyCode("USD").value(String.valueOf(orderItem.getPrice()))) //цена товара
-                                .quantity(String.valueOf(orderItem.getQuantity()))) // количество товара
-                        .collect(Collectors.toList()))// пакуем в лист
-                //указываем детали доставки
+                        .amountBreakdown(new AmountBreakdown().itemTotal(new Money().currencyCode("USD").value(String.valueOf(order.getTotalPrice())))))
+                .items(order.getItems().stream()
+                        .map(orderItem -> new Item()
+                                .name(orderItem.getProduct().getTitle())
+                                .unitAmount(new Money().currencyCode("USD").value(String.valueOf(orderItem.getPrice())))
+                                .quantity(String.valueOf(orderItem.getQuantity())))
+                        .collect(Collectors.toList()))
                 .shippingDetail(new ShippingDetail().name(new Name().fullName(order.getUsername()))
                         .addressPortable(new AddressPortable()
                                 .addressLine1("apt. " + order.getApartment().toString())
                                 .addressLine2("house " + order.getHouse().toString())
                                 .adminArea2(order.getStreet() + " str")
                                 .adminArea1(order.getCity()).countryCode("RU")));
-        purchaseUnitRequests.add(purchaseUnitRequest);//добавляем к запросу
-        orderRequest.purchaseUnits(purchaseUnitRequests); //формируем Requests
+        purchaseUnitRequests.add(purchaseUnitRequest);
+        orderRequest.purchaseUnits(purchaseUnitRequests);
         return orderRequest;
     }
 }

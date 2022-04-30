@@ -37,23 +37,28 @@ angular.module('market-front').controller('orderPayController', function ($scope
                         'content-type': 'application/json'
                     }
                 }).then(function(response) {
-                    response.text().then(msg => alert(msg)).then($location.path('/orders'));
-                    //перемещаем клиента на другую страницу
+                    $location.path('/orders').replace()
+                    $scope.$apply();
+                }).finally(() =>  {
                 });
+
+
             },
 
             // при неподтверждении черновика заказа
-            onCancel: function (data) {
+            onCancel: function (data, actions) {
                 console.log("Order canceled: " + data);
             },
 
             //при ошибке
-            onError: function (err) {
-                console.log(err);
+            onError: function (data, actions) {
+                alert(data + ' ! ' + data + ' ! ' + data);
             }
-
-
         }).render('#paypal-buttons');
+    }
+
+    $scope.goToOrders = function () {
+        $location.path('/orders');
     }
 
     $scope.loadOrder();

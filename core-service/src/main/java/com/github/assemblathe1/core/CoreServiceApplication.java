@@ -2,8 +2,10 @@ package com.github.assemblathe1.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
+@PropertySource("secret.properties")
 public class CoreServiceApplication {
 
     public static void main(String[] args) {

@@ -6,17 +6,20 @@
     <table class="table table-hover">
         <tr>
             <td>ID</td>
-            <td>Адрес доставки</td>
-            <td>Стоимость</td>
+            <td>Address</td>
+            <td>Total price</td>
+            <td>Order status</td>
             <td></td>
         </tr>
         <tbody>
         <tr ng-repeat="order in MyOrders">
             <td>{{order.id}}</td>
-            <td>{{order.address}}</td>
+            <td>{{order.city + ', ' + order.street + ' street, house ' + order.house + ', apt ' + order.apartment}}</td>
             <td>{{order.totalPrice}}</td>
+            <td>{{order.orderStatus}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="goToPay(order.id)">Оплатить</button>
+<!--                кнопка оплатить во вкладке заказы-->
+                <button ng-show="!isOrderPaid(order.orderStatus)" class="btn btn-primary" ng-click="goToPay(order.id)">Оплатить</button>
             </td>
         </tr>
         </tbody>

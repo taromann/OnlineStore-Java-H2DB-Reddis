@@ -12,5 +12,13 @@ angular.module('market-front').controller('ordersController', function ($scope, 
         $location.path('/order_pay/' + orderId); //перемещаем клиента на другую страницу
     }
 
+    $scope.isOrderPaid = function (orderStatus) {
+        if (orderStatus.toString() === "PAID") {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $scope.loadOrders();
 });

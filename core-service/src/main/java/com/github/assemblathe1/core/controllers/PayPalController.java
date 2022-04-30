@@ -28,15 +28,15 @@ public class PayPalController {
     private final OrderService orderService;
     private final PayPalService payPalService;
 
-    //черновик заказа
     @PostMapping("/create/{orderId}")
     public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
+        System.out.println(orderId);
         if (orderService.orderStatusEqualsTo(orderId, OrderStatus.PAID)) return new ResponseEntity<>("Order has already been payed ", HttpStatus.BAD_REQUEST);
         OrdersCreateRequest request = new OrdersCreateRequest();
         request.prefer("return=representation");
         request.requestBody(payPalService.createOrderRequest(orderId));
         HttpResponse<Order> response = payPalClient.execute(request);
-//        System.out.println(response.result().id());
+        System.out.println(response.result().id());
         return new ResponseEntity<>(response.result().id(), HttpStatus.valueOf(response.statusCode()));
     }
 

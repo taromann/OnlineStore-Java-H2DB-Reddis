@@ -28,8 +28,15 @@
     <h3>Детали заказа</h3>
     <form novalidate>
         <input class="form-control" type="text" placeholder="Номер телефона получателя" ng-model="orderDetails.phone">
+        <h3>Delivery address</h3>
         <p></p>
-        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">
+        <input class="form-control" type="text" placeholder="City" ng-model="orderDetails.city">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Street" ng-model="orderDetails.street">
+        <p></p>
+        <input class="form-control" type="text" placeholder="House" ng-model="orderDetails.house">
+        <p></p>
+        <input class="form-control" type="text" placeholder="apartment" ng-model="orderDetails.apartment">
         <p></p>
     </form>
 

@@ -11,19 +11,20 @@
         <module name="authentication-service" />
         <module name="cart-service" />
         <module name="online-store" />
-        <module name="api" />
         <module name="gateway-service" />
+        <module name="api" />
+        <module name="core-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="11" />
-      <module name="core-service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="authentication-service" options="-parameters" />
       <module name="cart-service" options="-parameters" />
+      <module name="core-service" options="-parameters" />
       <module name="front-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
     </option>

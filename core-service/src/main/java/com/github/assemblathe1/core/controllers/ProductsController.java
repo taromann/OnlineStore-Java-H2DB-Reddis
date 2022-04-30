@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
+
+//для документации swagger
 @Tag(name = "Продукты", description = "Методы работы с продуктами")
 public class ProductsController {
     private final ProductsService productsService;
     private final ProductConverter productConverter;
     private final ProductValidator productValidator;
 
+    //описываем метод getAllProducts
     @Operation(
             summary = "Запрос на получение страницы продуктов",
             responses = {
@@ -57,10 +60,11 @@ public class ProductsController {
                             description = "Успешный ответ", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
                     )
-            }
+            }/*,
+            hidden = true*/ //если не нужно, чтоб светилась в сваггере
     )
     public ProductDto getProductById(
-            @PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id
+            @PathVariable /*описываем параметр в swagger*/@Parameter(description = "Идентификатор продукта", required = true) Long id
     ) {
         Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
         return productConverter.entityToDto(product);

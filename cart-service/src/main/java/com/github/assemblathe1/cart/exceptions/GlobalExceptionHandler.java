@@ -1,5 +1,6 @@
 package com.github.assemblathe1.cart.exceptions;
 
+import com.geekbrains.spring.web.api.exceptions.AppError;
 import com.geekbrains.spring.web.api.exceptions.CartServiceAppError;
 import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CartServiceAppError> catchResourceNotFoundException(ResourceNotFoundException e) {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new CartServiceAppError(CartServiceAppError.CartServiceErrors.CART_IS_BROKEN.name(), e.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchProductServiceIntegrationException(ProductServiceIntegrationException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError("PRODUCT_SERVICE_INTEGRATION_ERROR", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler

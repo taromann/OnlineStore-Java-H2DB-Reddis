@@ -1,6 +1,7 @@
 package com.github.assemblathe1.core.exceptions;
 
 import com.geekbrains.spring.web.api.exceptions.AppError;
+import com.geekbrains.spring.web.api.exceptions.ProductServiceAppError;
 import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new AppError("RESOURCE_NOT_FOUND_EXCEPTION", e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ProductServiceAppError(ProductServiceAppError.ProductServiceErrors.PRODUCT_NOT_FOUND.name(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

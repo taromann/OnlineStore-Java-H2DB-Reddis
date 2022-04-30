@@ -1,11 +1,11 @@
-package com.github.assemblathe1.core.configs;
+package com.github.assemblathe1.cart.configs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//http://localhost:8189/web-market-core/swagger-ui/index.html
+//конфинг сваггера - результат в   /web-market-carts/swagger-ui.html
 @Configuration
 public class OpenApiConfig {
     @Bean
@@ -13,7 +13,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("Online-store: core-service")
+                                .title("Online-store: cart-service")
                                 .version("1")
                 );
     }

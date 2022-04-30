@@ -4,7 +4,7 @@ import com.geekbrains.spring.web.api.exceptions.AppError;
 
 public class CartServiceAppError extends AppError {
     public enum CartServiceErrors {
-        CART_IS_BROKEN, CART_ID_GENERATOR_DISABLED, CART_NOT_FOUND
+        CART_IS_BROKEN, CART_ID_GENERATOR_DISABLED, CART_NOT_FOUND //создаем варианты ошибок
     }
 
     public CartServiceAppError(String code, String message) {

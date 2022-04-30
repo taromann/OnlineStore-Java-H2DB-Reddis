@@ -39,7 +39,6 @@ angular.module('market-front').controller('orderPayController', function ($scope
                 }).then(function(response) {
                     $location.path('/orders').replace()
                     $scope.$apply();
-                }).finally(() =>  {
                 });
 
 

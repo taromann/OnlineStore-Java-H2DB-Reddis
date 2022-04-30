@@ -29,6 +29,8 @@ angular.module('market-front').controller('cartController', function ($scope, $h
         }).then(function (response) {
             $scope.loadCart();
             $scope.orderDetails = null
+            $location.path('/orders').replace()
+            $scope.$apply();
         });
     };
 

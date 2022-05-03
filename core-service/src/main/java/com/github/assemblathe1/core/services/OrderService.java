@@ -59,13 +59,15 @@ public class OrderService {
     }
 
     @Transactional
-    public void changeOrderStatus(long orderId, OrderStatus orderStatus) {
+    public String setOrderStatus(long orderId, OrderStatus orderStatus) {
         Order order = findById(orderId).orElseThrow(() -> new ResourceNotFoundException("ORDER 404"));
         order.setOrderStatus(orderStatus);
+        return getOrderStatus(orderId);
     }
 
-    public boolean orderStatusEqualsTo(long orderId, OrderStatus orderStatus) {
+    @Transactional
+    public String getOrderStatus(long orderId) {
        Order order = findById(orderId).orElseThrow(() -> new ResourceNotFoundException("ORDER 404"));
-        return order.getOrderStatus().name().equals(orderStatus.name());
+       return order.getOrderStatus().name();
     }
 }

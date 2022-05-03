@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<AppError> catchProductServiceIntegrationException(ProductServiceIntegrationException e) {
+    public ResponseEntity<AppError> catchProductServiceIntegrationException(CoreServiceIntegrationException e) {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new AppError("PRODUCT_SERVICE_INTEGRATION_ERROR", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }

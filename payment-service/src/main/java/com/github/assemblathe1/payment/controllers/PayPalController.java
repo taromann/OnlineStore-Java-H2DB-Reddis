@@ -1,9 +1,8 @@
-package com.github.assemblathe1.core.controllers;
+package com.github.assemblathe1.payment.controllers;
 
 
-import com.github.assemblathe1.core.entities.OrderStatus;
-import com.github.assemblathe1.core.services.OrderService;
-import com.github.assemblathe1.core.services.PayPalService;
+import com.github.assemblathe1.payment.integrations.CoreServiceIntegration;
+import com.github.assemblathe1.payment.services.PayPalService;
 import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.orders.Order;
@@ -25,13 +24,13 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PayPalController {
     private final PayPalHttpClient payPalClient;
-    private final OrderService orderService;
+    private final CoreServiceIntegration coreServiceIntegration;
     private final PayPalService payPalService;
 
     @PostMapping("/create/{orderId}")
     public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
         System.out.println(orderId);
-        if (orderService.orderStatusEqualsTo(orderId, OrderStatus.PAID)) return new ResponseEntity<>("Order has already been payed ", HttpStatus.BAD_REQUEST);
+        if (coreServiceIntegration.getOrderStatus(orderId).equals("PAID")) return new ResponseEntity<>("Order has already been payed ", HttpStatus.BAD_REQUEST);
         OrdersCreateRequest request = new OrdersCreateRequest();
         request.prefer("return=representation");
         request.requestBody(payPalService.createOrderRequest(orderId));
@@ -48,11 +47,11 @@ public class PayPalController {
         Order payPalOrder = response.result();
         long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
         if ("COMPLETED".equals(payPalOrder.status())) {
-            orderService.changeOrderStatus(orderId, OrderStatus.PAID);
+            coreServiceIntegration.setOrderStatus(orderId, "PAID");
             return new ResponseEntity<>("Order completed! " + " id "  + orderId, HttpStatus.valueOf(response.statusCode()));
         }
 
-        orderService.changeOrderStatus(orderId, OrderStatus.CANCELLED);
+        coreServiceIntegration.setOrderStatus(orderId, "CANCELLED");
         return new ResponseEntity<>(payPalOrder, HttpStatus.valueOf(response.statusCode()));
     }
 }

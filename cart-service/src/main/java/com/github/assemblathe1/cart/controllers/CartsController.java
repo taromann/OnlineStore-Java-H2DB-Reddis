@@ -3,7 +3,7 @@ package com.github.assemblathe1.cart.controllers;
 import com.geekbrains.spring.web.api.carts.CartDto;
 import com.geekbrains.spring.web.api.dto.StringResponse;
 import com.github.assemblathe1.cart.converters.CartConverter;
-import com.github.assemblathe1.cart.exceptions.ProductServiceIntegrationException;
+import com.github.assemblathe1.cart.exceptions.CoreServiceIntegrationException;
 import com.github.assemblathe1.cart.services.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -59,7 +59,7 @@ public class CartsController {
                     ),
                     @ApiResponse(
                             description = "Невозможно добавить продукт в корзину. Продукт не найдет по id", responseCode = "404",
-                            content = @Content(schema = @Schema(implementation = ProductServiceIntegrationException.class))
+                            content = @Content(schema = @Schema(implementation = CoreServiceIntegrationException.class))
                     )
             }
     )

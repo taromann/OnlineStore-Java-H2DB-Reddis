@@ -52,7 +52,7 @@ public class ProductsController {
         );
     }
 
-    @GetMapping("/{id}")
+
     @Operation(
             summary = "Запрос на получение продукта по id",
             responses = {
@@ -63,6 +63,7 @@ public class ProductsController {
             }/*,
             hidden = true*/ //если не нужно, чтоб светилась в сваггере
     )
+    @GetMapping("/{id}")
     public ProductDto getProductById(
             @PathVariable /*описываем параметр в swagger*/@Parameter(description = "Идентификатор продукта", required = true) Long id
     ) {

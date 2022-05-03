@@ -1,4 +1,4 @@
-package com.github.assemblathe1.core.configs;
+package com.github.assemblathe1.payment.configs;
 
 import com.paypal.core.PayPalEnvironment;
 import com.paypal.core.PayPalHttpClient;

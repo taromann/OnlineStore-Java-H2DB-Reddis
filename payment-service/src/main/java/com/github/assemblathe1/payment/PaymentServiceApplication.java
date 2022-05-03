@@ -1,14 +1,15 @@
-package com.github.assemblathe1.core;
+package com.github.assemblathe1.payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-public class CoreServiceApplication {
+@PropertySource("secret.properties")
+public class PaymentServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CoreServiceApplication.class, args);
+        SpringApplication.run(PaymentServiceApplication.class, args);
     }
 
 }

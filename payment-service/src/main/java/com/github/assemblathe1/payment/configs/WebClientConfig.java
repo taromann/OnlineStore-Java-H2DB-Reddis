@@ -1,6 +1,6 @@
-package com.github.assemblathe1.cart.configs;
+package com.github.assemblathe1.payment.configs;
 
-import com.github.assemblathe1.cart.properties.CoreServiceIntegrationProperties;
+import com.github.assemblathe1.payment.properties.CoreServiceIntegrationProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;

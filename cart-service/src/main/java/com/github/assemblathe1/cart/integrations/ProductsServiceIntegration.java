@@ -2,7 +2,7 @@ package com.github.assemblathe1.cart.integrations;
 
 import com.geekbrains.spring.web.api.core.ProductDto;
 import com.geekbrains.spring.web.api.exceptions.ProductServiceAppError;
-import com.github.assemblathe1.cart.exceptions.ProductServiceIntegrationException;
+import com.github.assemblathe1.cart.exceptions.CoreServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -24,13 +24,13 @@ public class ProductsServiceIntegration {
                                 body -> {
                                     //проверяем на ошибки, мапим в зависимости от кода ошибки
                                     if (body.getCode().equals(ProductServiceAppError.ProductServiceErrors.PRODUCT_NOT_FOUND.name())) {
-                                        return new ProductServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: продукт не найден");
+                                        return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: продукт не найден");
                                     }
-                                    return new ProductServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: причина неизвестна");
+                                    return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: причина неизвестна");
                                 }
                         )
                 )
-                .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new ProductServiceIntegrationException("Сервис продуктов сломался")))
+                .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new CoreServiceIntegrationException("Сервис продуктов сломался")))
                 .bodyToMono(ProductDto.class)
                 .block();//ждем выполнения синхронной операции
         return productDto;

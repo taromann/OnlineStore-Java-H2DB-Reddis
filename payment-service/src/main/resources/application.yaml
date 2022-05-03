@@ -1,0 +1,10 @@
+server:
+  port: 8165
+  servlet:
+    context-path: /web-market-payment
+integrations:
+  core-service:
+    url: http://localhost:5555/core
+    connect-timeout: 2000
+    read-timeout: 10000
+    write-timeout: 2000

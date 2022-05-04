@@ -8,17 +8,17 @@ create table products
 );
 
 insert into products (title, price)
-values ('Milk', 0.20),
+values ('Chicken', 0.20),
        ('Bread', 0.20),
        ('Cheese', 0.20),
-       ('Cheese2', 0.40),
-       ('Cheese3', 1.00),
-       ('Cheese4', 0.50),
-       ('Cheese5', 0.1),
-       ('Cheese6', 0.15),
-       ('Cheese7', 0.60),
-       ('Cheese8', 0.70),
-       ('Cheese9', 0.80);
+       ('Beef', 0.40),
+       ('Milk', 1.00),
+       ('Salmon', 0.50),
+       ('Trout', 0.1),
+       ('Avocado ', 0.15),
+       ('Carrot ', 0.60),
+       ('Cucumber ', 0.70),
+       ('Apple ', 0.80);
 
 create table orders
 (

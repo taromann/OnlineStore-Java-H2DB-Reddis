@@ -7,18 +7,28 @@
         <tr>
             <td>ID</td>
             <td>Address</td>
+            <td>Product</td>
             <td>Total price</td>
             <td>Order status</td>
             <td></td>
         </tr>
         <tbody>
         <tr ng-repeat="order in MyOrders">
-            <td>{{order.id}}</td>
-            <td>{{order.city + ', ' + order.street + ' street, house ' + order.house + ', apt ' + order.apartment}}</td>
-            <td>{{order.totalPrice}}</td>
-            <td>{{order.orderStatus}}</td>
+            <td class="align-middle">{{order.id}}</td>
+            <td class="align-middle">{{order.city + ', ' + order.street + ' street, house ' + order.house + ', apt ' + order.apartment}}</td>
+            <td class="align-middle">
+                <table class="align-middle" class="table table-borderless">
+                    <tr class="align-middle" ng-repeat="products in order.items">
+                        <td class="align-middle">{{products.productTitle}}</td>
+                        <td class="align-middle">{{' * '}}</td>
+                        <td class="align-middle">{{products.quantity}}</td>
+                    </tr>
+                </table>
+            </td>
+            <td class="align-middle">{{order.totalPrice}}</td>
+            <td class="align-middle">{{order.orderStatus}}</td>
             <td>
-<!--                кнопка оплатить во вкладке заказы-->
+                <!--                кнопка оплатить во вкладке заказы-->
                 <button ng-show="!isOrderPaid(order.orderStatus)" class="btn btn-primary" ng-click="goToPay(order.id)">Оплатить</button>
             </td>
         </tr>

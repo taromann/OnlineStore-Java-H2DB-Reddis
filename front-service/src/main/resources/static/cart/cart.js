@@ -21,7 +21,16 @@ angular.module('market-front').controller('cartController', function ($scope, $h
             });
     }
 
+    $scope.decrementProduct = function (productId) {
+        console.log($scope.selection);
+        $http.get(contextPath + 'api/v1/cart/' + $localStorage.springWebGuestCartId + '/decrement/' + productId)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
     $scope.checkOut = function () {
+        $scope.orderDetails.productIdSet =  $scope.selection; /*копируем в orderDetails массив с омеченными к заказу товарами*/
         $http({
             url: 'http://localhost:5555/core/api/v1/orders',
             method: 'POST',
@@ -32,6 +41,19 @@ angular.module('market-front').controller('cartController', function ($scope, $h
             $location.path('/orders').replace()
             $scope.$apply();
         });
+    };
+
+    //массив выбранных для заказа CartItem
+    $scope.selection = [];
+
+    //удаляет/добавляет в массив ip товаров, которые будут заказаны
+    $scope.toggleSelection = function toggleSelection(productId) {
+        var idx = $scope.selection.indexOf(productId);
+        if (idx > -1) {
+            $scope.selection.splice(idx, 1);
+        } else {
+            $scope.selection.push(productId);
+        }
     };
 
     $scope.loadCart();

@@ -73,7 +73,8 @@ angular.module('market-front').controller('indexController', function ($rootScop
                         .then(function successCallback(response) {
                         });
 
-                    $location.path('/');
+                    $location.path('/cart').replace()
+                    $scope.$apply();
                 }
             }, function errorCallback(response) {
             });

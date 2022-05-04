@@ -35,6 +35,27 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-route -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-route</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/angular -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>angular</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/ngstorage -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>ngstorage</artifactId>
+            <version>0.3.11</version>
+        </dependency>
+
     </dependencies>
 
     <build>

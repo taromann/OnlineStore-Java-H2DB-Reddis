@@ -1,17 +1,30 @@
 <div>
     <p></p>
-    <h3>Корзина</h3>
     <table class="table table-hover">
         <tr>
+            <td></td>
             <td>Название товара</td>
             <td>Количество</td>
             <td>Цена</td>
         </tr>
         <tbody>
         <tr ng-repeat="item in cart.items">
+            <!--         чекбокс для отметки товаров, которые хотим передать в заказ (добавляет id товара в массив)-->
+            <td>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value={{item.productId}}
+                           ng-checked="selection.indexOf(item.productId) > -1"
+                           ng-click="toggleSelection(item.productId)"
+                           id="flexCheckDefault">
+                </div>
+            </td>
             <td>{{item.productTitle}}</td>
             <td>{{item.quantity}}</td>
             <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
+            <td>
+                <button class="btn btn-primary position end" ng-click="decrementProduct(item.productId)" ng-click=consoleL>Удалить
+                </button>
+            </td>
         </tr>
         <tr>
             <td></td>
@@ -25,21 +38,23 @@
     </p>
 
     <p></p>
-    <h3>Детали заказа</h3>
-    <form novalidate>
+    <p>
+    <form ng-show="isUserLoggedIn() && cart.items.length > 0" novalidate>
+        <h3>Доставка</h3>
+
         <input class="form-control" type="text" placeholder="Номер телефона получателя" ng-model="orderDetails.phone">
-        <h3>Delivery address</h3>
         <p></p>
-        <input class="form-control" type="text" placeholder="City" ng-model="orderDetails.city">
+        <input class="form-control" type="text" placeholder="Город" ng-model="orderDetails.city">
         <p></p>
-        <input class="form-control" type="text" placeholder="Street" ng-model="orderDetails.street">
+        <input class="form-control" type="text" placeholder="Улица" ng-model="orderDetails.street">
         <p></p>
-        <input class="form-control" type="text" placeholder="House" ng-model="orderDetails.house">
+        <input class="form-control" type="text" placeholder="Дом" ng-model="orderDetails.house">
         <p></p>
-        <input class="form-control" type="text" placeholder="apartment" ng-model="orderDetails.apartment">
+        <input class="form-control" type="text" placeholder="Квартира" ng-model="orderDetails.apartment">
         <p></p>
     </form>
 
     <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Оформить заказ</button>
     <button class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.items.length > 0">Оформить заказ</button>
+    </p>
 </div>

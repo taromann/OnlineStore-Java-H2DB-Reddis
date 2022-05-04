@@ -18,43 +18,30 @@
 <body>
 
 <div class="container" ng-controller="indexController">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#!/">Online-store</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!/store">Каталог товаров</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!/cart">Корзина</a>
-                </li>
-                <li class="nav-item" ng-show="isUserLoggedIn()">
-                    <a class="nav-link" href="#!/orders">Мои заказы</a>
-                </li>
 
-                <li class="nav-item" ng-show="!isUserLoggedIn()">
-                    <form class="align-middle" ng-submit="tryToAuth()">
-                        <div class="input-group input-group-sm" style="padding: 4px;">
-                            <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="true"><a class="nav-link" href="#!/">Online-store</a></button>
+            <button class="nav-link" id="nav-items-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false"><a class="nav-link" href="#!/store">Каталог товаров</a></button>
+            <button class="nav-link" id="nav-cart-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false"><a class="nav-link" href="#!/cart">Корзина</a></button>
+            <button class="nav-link" id="nav-orders-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" ng-show="isUserLoggedIn()"><a class="nav-link" href="#!/orders">Мои заказы</a></button>
 
-                            <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
-                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+            <li class="nav-item" ng-show="!isUserLoggedIn()" style="margin-left: 200px; margin-top: 10px">
+                <form class="align-middle" ng-submit="tryToAuth()">
+                    <div class="input-group input-group-sm" style="padding: 4px;">
+                        <input id="navLoginField" class="form-control" ng-model="user.username" type="text" aria-describedby="inputGroup-sizing-sm" placeholder="Логин" data-bs-toggle="tab">
+                        <input id="navPasswordField" class="form-control" ng-model="user.password" type="password" aria-describedby="inputGroup-sizing-sm" placeholder="Пароль">
+                        <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm" type="submit">Войти</button>
+                    </div>
+                </form>
+            </li>
 
-                            <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
-                                    style="margin-left: 10px;" type="submit">Войти
-                            </button>
-                        </div>
-                    </form>
-                </li>
-                <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
-                    <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
-                </li>
-            </ul>
+            <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
+                <button class="btn btn-outline-secondary btn-sm" style="margin-left: 300px" ng-click="tryToLogout()" >Выйти</button>
+            </li>
         </div>
     </nav>
+
 
     <ng-view></ng-view>
 
@@ -73,6 +60,5 @@
     <script src="webjars/angular-route/1.8.2/angular-route.min.js"></script>
     <script src="webjars/ngstorage/0.3.11/ngStorage.min.js"></script>
 </div>
-
 </body>
 </html>

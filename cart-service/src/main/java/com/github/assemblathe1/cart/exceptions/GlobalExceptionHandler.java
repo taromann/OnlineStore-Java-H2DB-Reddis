@@ -1,9 +1,9 @@
 package com.github.assemblathe1.cart.exceptions;
 
-import com.geekbrains.spring.web.api.exceptions.AppError;
-import com.geekbrains.spring.web.api.exceptions.CartServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.CartNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
+import com.github.assemblathe1.api.exceptions.AppError;
+import com.github.assemblathe1.api.exceptions.CartServiceAppError;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.CartNotFoundException;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

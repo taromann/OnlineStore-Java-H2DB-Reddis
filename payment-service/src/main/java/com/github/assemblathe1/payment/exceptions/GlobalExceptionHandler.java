@@ -1,11 +1,6 @@
 package com.github.assemblathe1.payment.exceptions;
 
-import com.geekbrains.spring.web.api.exceptions.AppError;
-import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.PaymentServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
+import com.github.assemblathe1.api.exceptions.AppError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

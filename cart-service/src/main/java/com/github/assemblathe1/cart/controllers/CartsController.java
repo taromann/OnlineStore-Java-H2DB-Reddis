@@ -1,7 +1,7 @@
 package com.github.assemblathe1.cart.controllers;
 
-import com.geekbrains.spring.web.api.carts.CartDto;
-import com.geekbrains.spring.web.api.dto.StringResponse;
+import com.github.assemblathe1.api.carts.CartDto;
+import com.github.assemblathe1.api.dto.StringResponse;
 import com.github.assemblathe1.cart.converters.CartConverter;
 import com.github.assemblathe1.cart.exceptions.CoreServiceIntegrationException;
 import com.github.assemblathe1.cart.services.CartService;

@@ -1,7 +1,7 @@
 package com.github.assemblathe1.payment.integrations;
 
-import com.geekbrains.spring.web.api.core.OrderDto;
-import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
+import com.github.assemblathe1.api.core.OrderDto;
+import com.github.assemblathe1.api.exceptions.CoreServiceAppError;
 import com.github.assemblathe1.payment.exceptions.OrderServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

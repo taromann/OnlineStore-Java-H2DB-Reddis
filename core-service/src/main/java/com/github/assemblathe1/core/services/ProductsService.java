@@ -1,8 +1,7 @@
 package com.github.assemblathe1.core.services;
 
-import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
+import com.github.assemblathe1.api.core.ProductDto;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
 import com.github.assemblathe1.core.entities.Product;
 import com.github.assemblathe1.core.repositories.ProductsRepository;
 import com.github.assemblathe1.core.repositories.specifications.ProductsSpecifications;

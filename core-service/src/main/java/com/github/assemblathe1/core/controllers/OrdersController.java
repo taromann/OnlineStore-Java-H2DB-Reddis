@@ -1,8 +1,8 @@
 package com.github.assemblathe1.core.controllers;
 
-import com.geekbrains.spring.web.api.core.OrderDetailsDto;
-import com.geekbrains.spring.web.api.core.OrderDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
+import com.github.assemblathe1.api.core.OrderDetailsDto;
+import com.github.assemblathe1.api.core.OrderDto;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
 import com.github.assemblathe1.core.converters.OrderConverter;
 import com.github.assemblathe1.core.entities.OrderStatus;
 import com.github.assemblathe1.core.services.OrderService;

@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.carts;
+package com.github.assemblathe1.api.carts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

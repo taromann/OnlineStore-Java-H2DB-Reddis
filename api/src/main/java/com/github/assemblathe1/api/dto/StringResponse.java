@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.dto;
+package com.github.assemblathe1.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

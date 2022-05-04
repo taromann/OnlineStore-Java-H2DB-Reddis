@@ -1,7 +1,7 @@
 package com.github.assemblathe1.cart.integrations;
 
-import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
+import com.github.assemblathe1.api.core.ProductDto;
+import com.github.assemblathe1.api.exceptions.CoreServiceAppError;
 import com.github.assemblathe1.cart.exceptions.CoreServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.core;
+package com.github.assemblathe1.api.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

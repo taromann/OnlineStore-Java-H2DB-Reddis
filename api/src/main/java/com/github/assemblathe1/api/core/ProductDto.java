@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.core;
+package com.github.assemblathe1.api.core;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

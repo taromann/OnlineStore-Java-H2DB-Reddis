@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.exceptions;
+package com.github.assemblathe1.api.exceptions;
 
 public class CoreServiceAppError extends AppError {
     public enum CoreServiceErrors {

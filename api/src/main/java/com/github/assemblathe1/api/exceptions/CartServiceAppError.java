@@ -1,6 +1,4 @@
-package com.geekbrains.spring.web.api.exceptions;
-
-import com.geekbrains.spring.web.api.exceptions.AppError;
+package com.github.assemblathe1.api.exceptions;
 
 public class CartServiceAppError extends AppError {
     public enum CartServiceErrors {

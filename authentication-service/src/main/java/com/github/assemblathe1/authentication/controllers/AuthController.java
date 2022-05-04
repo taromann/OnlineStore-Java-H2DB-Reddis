@@ -1,6 +1,6 @@
 package com.github.assemblathe1.authentication.controllers;
 
-import com.geekbrains.spring.web.api.exceptions.AppError;
+import com.github.assemblathe1.api.exceptions.AppError;
 import com.github.assemblathe1.authentication.dto.JwtRequest;
 import com.github.assemblathe1.authentication.dto.JwtResponse;
 import com.github.assemblathe1.authentication.services.UserService;

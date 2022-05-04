@@ -1,6 +1,6 @@
 package com.github.assemblathe1.cart.models;
 
-import com.geekbrains.spring.web.api.core.ProductDto;
+import com.github.assemblathe1.api.core.ProductDto;
 import lombok.Data;
 
 import java.math.BigDecimal;

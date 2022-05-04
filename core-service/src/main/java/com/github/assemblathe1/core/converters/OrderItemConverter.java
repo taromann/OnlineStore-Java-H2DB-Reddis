@@ -1,6 +1,6 @@
 package com.github.assemblathe1.core.converters;
 
-import com.geekbrains.spring.web.api.core.OrderItemDto;
+import com.github.assemblathe1.api.core.OrderItemDto;
 import com.github.assemblathe1.core.entities.OrderItem;
 import org.springframework.stereotype.Component;
 

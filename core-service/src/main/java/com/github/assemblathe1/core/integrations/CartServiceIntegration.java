@@ -1,7 +1,7 @@
 package com.github.assemblathe1.core.integrations;
 
-import com.geekbrains.spring.web.api.carts.CartDto;
-import com.geekbrains.spring.web.api.exceptions.CartServiceAppError;
+import com.github.assemblathe1.api.carts.CartDto;
+import com.github.assemblathe1.api.exceptions.CartServiceAppError;
 import com.github.assemblathe1.core.exceptions.CartServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

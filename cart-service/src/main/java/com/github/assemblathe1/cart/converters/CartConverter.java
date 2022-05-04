@@ -1,7 +1,7 @@
 package com.github.assemblathe1.cart.converters;
 
-import com.geekbrains.spring.web.api.carts.CartDto;
-import com.geekbrains.spring.web.api.carts.CartItemDto;
+import com.github.assemblathe1.api.carts.CartDto;
+import com.github.assemblathe1.api.carts.CartItemDto;
 import com.github.assemblathe1.cart.models.Cart;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,9 @@
 package com.github.assemblathe1.core.services;
 
-import com.geekbrains.spring.web.api.carts.CartDto;
-import com.geekbrains.spring.web.api.core.OrderDetailsDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
+import com.github.assemblathe1.api.carts.CartDto;
+import com.github.assemblathe1.api.core.OrderDetailsDto;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
+import com.github.assemblathe1.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
 import com.github.assemblathe1.core.entities.Order;
 import com.github.assemblathe1.core.entities.OrderItem;
 import com.github.assemblathe1.core.entities.OrderStatus;

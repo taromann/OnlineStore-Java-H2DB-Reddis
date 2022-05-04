@@ -1,7 +1,8 @@
 package com.github.assemblathe1.core.services;
 
 import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import com.github.assemblathe1.core.entities.Product;
 import com.github.assemblathe1.core.repositories.ProductsRepository;
 import com.github.assemblathe1.core.repositories.specifications.ProductsSpecifications;
@@ -48,7 +49,7 @@ public class ProductsService {
 
     @Transactional
     public Product update(ProductDto productDto) {
-        Product product = productsRepository.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Невозможно обновить продукта, не надйен в базе, id: " + productDto.getId()));
+        Product product = productsRepository.findById(productDto.getId()).orElseThrow(() -> new ProductNotFoundException("Невозможно обновить продукта, не надйен в базе, id: " + productDto.getId()));
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());
         return product;

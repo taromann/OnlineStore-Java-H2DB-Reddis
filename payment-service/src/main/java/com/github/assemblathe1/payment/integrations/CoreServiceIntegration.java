@@ -1,8 +1,7 @@
 package com.github.assemblathe1.payment.integrations;
 
 import com.geekbrains.spring.web.api.core.OrderDto;
-import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.OrderServiceAppError;
+import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
 import com.github.assemblathe1.payment.exceptions.OrderServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,9 +20,9 @@ public class CoreServiceIntegration {
                 .retrieve()
                 .onStatus(
                         httpStatus -> httpStatus.is4xxClientError(), // HttpStatus::is4xxClientError
-                        clientResponse -> clientResponse.bodyToMono(OrderServiceAppError.class).map(
+                        clientResponse -> clientResponse.bodyToMono(CoreServiceAppError.class).map(
                                 body -> {
-                                    if (body.getCode().equals(OrderServiceAppError.OrderServiceErrors.ORDER_NOT_FOUND.name())) {
+                                    if (body.getCode().equals(CoreServiceAppError.CoreServiceErrors.ORDER_NOT_FOUND.name())) {
                                         return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ не найден");
                                     }
                                     return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ неизвестна");
@@ -47,9 +46,9 @@ public class CoreServiceIntegration {
                 .retrieve()
                 .onStatus(
                         httpStatus -> httpStatus.is4xxClientError(), // HttpStatus::is4xxClientError
-                        clientResponse -> clientResponse.bodyToMono(OrderServiceAppError.class).map(
+                        clientResponse -> clientResponse.bodyToMono(CoreServiceAppError.class).map(
                                 body -> {
-                                    if (body.getCode().equals(OrderServiceAppError.OrderServiceErrors.ORDER_NOT_FOUND.name())) {
+                                    if (body.getCode().equals(CoreServiceAppError.CoreServiceErrors.ORDER_NOT_FOUND.name())) {
                                         return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ не найден");
                                     }
                                     return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ неизвестна");
@@ -70,9 +69,9 @@ public class CoreServiceIntegration {
                 .retrieve()
                 .onStatus(
                         httpStatus -> httpStatus.is4xxClientError(), // HttpStatus::is4xxClientError
-                        clientResponse -> clientResponse.bodyToMono(OrderServiceAppError.class).map(
+                        clientResponse -> clientResponse.bodyToMono(CoreServiceAppError.class).map(
                                 body -> {
-                                    if (body.getCode().equals(OrderServiceAppError.OrderServiceErrors.ORDER_NOT_FOUND.name())) {
+                                    if (body.getCode().equals(CoreServiceAppError.CoreServiceErrors.ORDER_NOT_FOUND.name())) {
                                         return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ не найден");
                                     }
                                     return new OrderServiceIntegrationException("Выполнен некорректный запрос к сервису заказов: заказ неизвестна");

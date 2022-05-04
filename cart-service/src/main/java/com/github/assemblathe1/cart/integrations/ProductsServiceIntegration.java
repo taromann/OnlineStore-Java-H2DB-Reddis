@@ -1,7 +1,7 @@
 package com.github.assemblathe1.cart.integrations;
 
 import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.ProductServiceAppError;
+import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
 import com.github.assemblathe1.cart.exceptions.CoreServiceIntegrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,13 +20,10 @@ public class ProductsServiceIntegration {
                 .retrieve() //ожидаем ответ
                 .onStatus(
                         httpStatus -> httpStatus.is4xxClientError(), // HttpStatus::is4xxClientError
-                        clientResponse -> clientResponse.bodyToMono(ProductServiceAppError.class).map(
+                        clientResponse -> clientResponse.bodyToMono(CoreServiceAppError.class).map(
                                 body -> {
                                     //проверяем на ошибки, мапим в зависимости от кода ошибки
-                                    if (body.getCode().equals(ProductServiceAppError.ProductServiceErrors.PRODUCT_NOT_FOUND.name())) {
-                                        return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: продукт не найден");
-                                    }
-                                    return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: причина неизвестна");
+                                    return getProductServiceIntegrationException(body);
                                 }
                         )
                 )
@@ -34,5 +31,17 @@ public class ProductsServiceIntegration {
                 .bodyToMono(ProductDto.class)
                 .block();//ждем выполнения синхронной операции
         return productDto;
+    }
+
+    private CoreServiceIntegrationException getProductServiceIntegrationException(CoreServiceAppError body) {
+        if (body.getCode().equals(CoreServiceAppError.CoreServiceErrors.PRODUCT_NOT_FOUND.name())) {
+            return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: продукт не найден");
+        }
+
+        if (body.getCode().equals(CoreServiceAppError.CoreServiceErrors.UNKNOWN_CORE_SERVICE_RESOURCE_NOT_FOUND_EXCEPTION.name())) {
+            return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: продукт не найден - причина неизвестна");
+        }
+
+        return new CoreServiceIntegrationException("Выполнен некорректный запрос к сервису продуктов: причина неизвестна");
     }
 }

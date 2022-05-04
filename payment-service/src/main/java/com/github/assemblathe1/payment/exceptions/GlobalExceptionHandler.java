@@ -1,9 +1,11 @@
 package com.github.assemblathe1.payment.exceptions;
 
 import com.geekbrains.spring.web.api.exceptions.AppError;
-import com.geekbrains.spring.web.api.exceptions.OrderServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.ProductServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.CoreServiceAppError;
+import com.geekbrains.spring.web.api.exceptions.PaymentServiceAppError;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-    @ExceptionHandler
-    public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
-        log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new OrderServiceAppError(OrderServiceAppError.OrderServiceErrors.ORDER_NOT_FOUND.name(), e.getMessage()), HttpStatus.NOT_FOUND);
-    }
 
     @ExceptionHandler
     public ResponseEntity<AppError> catchOrderServiceIntegrationException(OrderServiceIntegrationException e) {

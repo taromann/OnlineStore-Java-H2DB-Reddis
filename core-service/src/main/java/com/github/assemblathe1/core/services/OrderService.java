@@ -2,7 +2,9 @@ package com.github.assemblathe1.core.services;
 
 import com.geekbrains.spring.web.api.carts.CartDto;
 import com.geekbrains.spring.web.api.core.OrderDetailsDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import com.github.assemblathe1.core.entities.Order;
 import com.github.assemblathe1.core.entities.OrderItem;
 import com.github.assemblathe1.core.entities.OrderStatus;
@@ -12,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +29,7 @@ public class OrderService {
 
     @Transactional
     public void createOrder(String username, OrderDetailsDto orderDetailsDto) {
+        Arrays.stream(orderDetailsDto.getProductIdSet()).forEach(System.out::println);
         CartDto currentCart = cartServiceIntegration.getUserCart(username);
         Order order = new Order();
         order.setCity(orderDetailsDto.getCity());
@@ -33,19 +38,23 @@ public class OrderService {
         order.setApartment(orderDetailsDto.getApartment());
         order.setPhone(orderDetailsDto.getPhone());
         order.setUsername(username);
-        order.setTotalPrice(currentCart.getTotalPrice());
         order.setOrderStatus(OrderStatus.CREATED);
         List<OrderItem> items = currentCart.getItems().stream()
+                .filter(o -> Arrays.asList(orderDetailsDto.getProductIdSet()).contains(o.getProductId())) //добавляем товары из корзины только те, которые переданы в orderDetailsDto (отмечены галочкой)
                 .map(o -> {
                     OrderItem item = new OrderItem();
                     item.setOrder(order);
                     item.setQuantity(o.getQuantity());
                     item.setPricePerProduct(o.getPricePerProduct());
                     item.setPrice(o.getPrice());
-                    item.setProduct(productsService.findById(o.getProductId()).orElseThrow(() -> new ResourceNotFoundException("Product not found")));
+                    item.setProduct(productsService.findById(o.getProductId()).orElseThrow(() -> new ProductNotFoundException("Product not found")));
                     return item;
                 }).collect(Collectors.toList());
         order.setItems(items);
+        //считаем сумму заказа исходя из выбранных позиций в карзине при заказе
+        order.setTotalPrice(items.stream()
+                .map(o -> o.getPricePerProduct().multiply(BigDecimal.valueOf(o.getQuantity())))
+                .reduce(BigDecimal::add).get());
         ordersRepository.save(order);
         cartServiceIntegration.clearUserCart(username);
     }
@@ -60,14 +69,12 @@ public class OrderService {
 
     @Transactional
     public String setOrderStatus(long orderId, OrderStatus orderStatus) {
-        Order order = findById(orderId).orElseThrow(() -> new ResourceNotFoundException("ORDER 404"));
+        Order order = findById(orderId).orElseThrow(() -> new OrderNotFoundException("ORDER 404"));
         order.setOrderStatus(orderStatus);
         return getOrderStatus(orderId);
     }
 
-    @Transactional
     public String getOrderStatus(long orderId) {
-       Order order = findById(orderId).orElseThrow(() -> new ResourceNotFoundException("ORDER 404"));
-       return order.getOrderStatus().name();
+       return findById(orderId).orElseThrow(() -> new OrderNotFoundException("ORDER 404")).getOrderStatus().name();
     }
 }

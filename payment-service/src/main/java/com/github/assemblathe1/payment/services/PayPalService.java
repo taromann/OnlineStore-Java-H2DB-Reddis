@@ -1,7 +1,6 @@
 package com.github.assemblathe1.payment.services;
 
 import com.geekbrains.spring.web.api.core.OrderDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import com.github.assemblathe1.payment.integrations.CoreServiceIntegration;
 import com.paypal.orders.*;
 import lombok.RequiredArgsConstructor;

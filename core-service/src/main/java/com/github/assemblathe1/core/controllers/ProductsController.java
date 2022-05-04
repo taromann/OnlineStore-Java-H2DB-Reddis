@@ -1,7 +1,8 @@
 package com.github.assemblathe1.core.controllers;
 
 import com.geekbrains.spring.web.api.core.ProductDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ProductNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import com.github.assemblathe1.core.converters.ProductConverter;
 import com.github.assemblathe1.core.entities.Product;
 import com.github.assemblathe1.core.services.ProductsService;
@@ -67,7 +68,7 @@ public class ProductsController {
     public ProductDto getProductById(
             @PathVariable /*описываем параметр в swagger*/@Parameter(description = "Идентификатор продукта", required = true) Long id
     ) {
-        Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
+        Product product = productsService.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
         return productConverter.entityToDto(product);
     }
 

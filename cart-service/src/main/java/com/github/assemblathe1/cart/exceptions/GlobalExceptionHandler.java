@@ -2,7 +2,8 @@ package com.github.assemblathe1.cart.exceptions;
 
 import com.geekbrains.spring.web.api.exceptions.AppError;
 import com.geekbrains.spring.web.api.exceptions.CartServiceAppError;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.CartNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<CartServiceAppError> catchResourceNotFoundException(ResourceNotFoundException e) {
+        if (e.getClass().equals(CartNotFoundException.class))
+            return new ResponseEntity<>(new CartServiceAppError(CartServiceAppError.CartServiceErrors.CART_NOT_FOUND.name(), e.getMessage()), HttpStatus.NOT_FOUND);
+
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new CartServiceAppError(CartServiceAppError.CartServiceErrors.CART_IS_BROKEN.name(), e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new CartServiceAppError(CartServiceAppError.CartServiceErrors.UNKNOWN_CART_SERVICE_RESOURCE_NOT_FOUND_EXCEPTION.name(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

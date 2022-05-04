@@ -2,7 +2,7 @@ package com.github.assemblathe1.core.controllers;
 
 import com.geekbrains.spring.web.api.core.OrderDetailsDto;
 import com.geekbrains.spring.web.api.core.OrderDto;
-import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundExceptions.OrderNotFoundException;
 import com.github.assemblathe1.core.converters.OrderConverter;
 import com.github.assemblathe1.core.entities.OrderStatus;
 import com.github.assemblathe1.core.services.OrderService;
@@ -28,8 +28,10 @@ public class OrdersController {
 
     @GetMapping
     public List<OrderDto> getCurrentUserOrders(@RequestHeader String username) {
-        return orderService.findOrdersByUsername(username).stream()
-                .map(orderConverter::entityToDto).collect(Collectors.toList());
+        return orderService.findOrdersByUsername(username)
+                .stream()
+                .map(orderConverter::entityToDto)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/{id}/status")
@@ -47,6 +49,6 @@ public class OrdersController {
 
     @GetMapping("/{id}")
     public OrderDto getOrderById(@PathVariable Long id) {
-        return orderConverter.entityToDto(orderService.findById(id).orElseThrow(() -> new ResourceNotFoundException("ORDER 404")));
+        return orderConverter.entityToDto(orderService.findById(id).orElseThrow(() -> new OrderNotFoundException("ORDER 404")));
     }
 }

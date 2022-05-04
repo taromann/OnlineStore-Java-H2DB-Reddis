@@ -21,7 +21,7 @@ public class PayPalService {
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
         ApplicationContext applicationContext = new ApplicationContext()
-                .brandName("Spring Web Market")
+                .brandName("Online-store")
                 .landingPage("BILLING")
                 .shippingPreference("SET_PROVIDED_ADDRESS");
         orderRequest.applicationContext(applicationContext);
@@ -29,7 +29,8 @@ public class PayPalService {
         List<PurchaseUnitRequest> purchaseUnitRequests = new ArrayList<>();
         PurchaseUnitRequest purchaseUnitRequest = new PurchaseUnitRequest()
                 .referenceId(orderId.toString())
-                .description("Spring Web Market Order")
+                //TODO это описание заказа - изменить
+                .description("Online-store Order")
                 .amountWithBreakdown(new AmountWithBreakdown().currencyCode("USD").value(String.valueOf(orderDto.getTotalPrice()))
                         .amountBreakdown(new AmountBreakdown().itemTotal(new Money().currencyCode("USD").value(String.valueOf(orderDto.getTotalPrice())))))
                 .items(orderDto.getItems().stream()

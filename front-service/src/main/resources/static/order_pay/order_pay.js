@@ -12,16 +12,16 @@ angular.module('market-front').controller('orderPayController', function ($scope
     };
 
     //обработка нажатия кнопки
-    $scope.renderPaymentButtons = function() {
+    $scope.renderPaymentButtons = function () {
         paypal.Buttons({
             //создание черновика заказа
-            createOrder: function(data, actions) {
+            createOrder: function (data, actions) {
                 return fetch('http://localhost:5555/payment/api/v1/paypal/create/' + $scope.order.id, {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json'
                     }
-                }).then(function(response) {
+                }).then(function (response) {
                     return response.text();
                 });
             },
@@ -29,35 +29,52 @@ angular.module('market-front').controller('orderPayController', function ($scope
             //далее появляется запрос на подтверждение черновика заказа
 
             // при подтверждении черновика заказа
-            onApprove: function(data, actions) {
+            onApprove: function (data, actions) {
                 //отправляем запрос о том что будем проводить платеж
                 return fetch('http://localhost:5555/payment/api/v1/paypal/capture/' + data.orderID, {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json'
                     }
-                }).then(function(response) {
-                    $location.path('/orders').replace()
-                    $scope.$apply();
-                });
+                }).finally(
+                    $scope.goToOrders
+                );
 
 
             },
 
             // при неподтверждении черновика заказа
             onCancel: function (data, actions) {
-                console.log("Order canceled: " + data);
+                $http({
+                    url: 'http://localhost:5555/core/api/v1/orders/' + $scope.order.id + '/status',
+                    method: 'POST',
+                    params: {
+                        status: 'CANCELLED',
+                    }
+                }).finally(
+                    $scope.goToOrders
+                );
             },
 
             //при ошибке
             onError: function (data, actions) {
-                alert(data + ' ! ' + data + ' ! ' + data);
+                $http({
+                    url: 'http://localhost:5555/core/api/v1/orders/' + $scope.order.id + '/status',
+                    method: 'POST',
+                    params: {
+                        status: 'ERROR_WHILE_REGISTRATION',
+                    }
+                }).finally(
+                    $scope.goToOrders
+                )
             }
         }).render('#paypal-buttons');
     }
 
     $scope.goToOrders = function () {
-        $location.path('/orders');
+        $location.path('/orders'),
+        $scope.$apply()
+        $window.location.reload();
     }
 
     $scope.loadOrder();

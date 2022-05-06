@@ -1,34 +1,51 @@
-create table products
+create table categories
 (
-    id         bigserial primary key,
-    title      varchar(255),
-    price      numeric(8, 2) not null,
-    created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp
+    id          bigserial primary key,
+    title       varchar(255)  not null,
+    created_at  timestamp default current_timestamp,
+    updated_at  timestamp default current_timestamp
 );
 
-insert into products (title, price)
-values ('Chicken', 0.20),
-       ('Bread', 0.20),
-       ('Cheese', 0.20),
-       ('Beef', 0.40),
-       ('Milk', 1.00),
-       ('Salmon', 0.50),
-       ('Trout', 0.1),
-       ('Avocado ', 0.15),
-       ('Carrot ', 0.60),
-       ('Cucumber ', 0.70),
-       ('Apple ', 0.80);
+insert into categories (title)
+values ('Meat'),
+       ('Vegetables'),
+       ('Dairy'),
+       ('Fruits'),
+       ('Bakery'),
+       ('Fish');
+
+create table products
+(
+    id          bigserial primary key,
+    title       varchar(255),
+    price       numeric(8, 2) not null,
+    category_id bigint not null references categories (id),
+    created_at  timestamp default current_timestamp,
+    updated_at  timestamp default current_timestamp
+);
+
+insert into products (title, price, category_id)
+values ('Chicken', 0.20, 1),
+       ('Bread', 0.20, 5),
+       ('Cheese', 0.20, 3),
+       ('Beef', 0.40, 1),
+       ('Milk', 1.00, 3),
+       ('Salmon', 0.50, 6),
+       ('Trout', 0.1, 6),
+       ('Avocado ', 0.15, 4),
+       ('Carrot ', 0.60, 2),
+       ('Cucumber ', 0.70, 2),
+       ('Apple ', 0.80, 4);
 
 create table orders
 (
     id          bigserial primary key,
     username    varchar(255)  not null,
     total_price numeric(8, 2)  not null,
-    city     varchar(255),
-    street     varchar(255),
-    house     int,
-    apartment     int,
+    city        varchar(255),
+    street      varchar(255),
+    house       int,
+    apartment   int,
     phone       varchar(255),
     status      int not null,
     created_at  timestamp default current_timestamp,

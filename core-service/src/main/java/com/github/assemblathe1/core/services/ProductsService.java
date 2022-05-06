@@ -30,7 +30,7 @@ public class ProductsService {
         if (partTitle != null) {
             spec = spec.and(ProductsSpecifications.titleLike(partTitle));
         }
-        if (category != null) {
+        if (category != null && !category.equals("All")) {
             spec = spec.and(ProductsSpecifications.belongToCategory(category));
         }
 

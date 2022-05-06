@@ -18,6 +18,18 @@
                     <label for="filterMaxPrice">Макс. цена</label>
                 </div>
                 <p></p>
+
+                <select class="form-select" ng-model="filter.category">
+                    <option value="All">Все</option>
+                    <option value="Meat">Мясо</option>
+                    <option value="Vegetables">Овощи</option>
+                    <option value="Dairy">Молочные продукты</option>
+                    <option value="Fruits">Фрукты</option>
+                    <option value="Bakery">Хлебобулочные изделия</option>
+                    <option value="Fish">Рыба</option>
+                </select>
+
+                <p></p>
                 <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить</button>
             </form>
         </div>

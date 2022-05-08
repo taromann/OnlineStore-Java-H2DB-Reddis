@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ import java.util.Optional;
 public class ProductsService {
     private final ProductsRepository productsRepository;
 
-    public Page<Product> findAll(Integer minPrice, Integer maxPrice, String partTitle, String category, Integer page) {
+    public Page<Product> findAll(BigDecimal minPrice, BigDecimal maxPrice, String partTitle, String category, Integer page) {
         Specification<Product> spec = Specification.where(null);
         if (minPrice != null) {
             spec = spec.and(ProductsSpecifications.priceGreaterOrEqualsThan(minPrice));

@@ -18,6 +18,7 @@
 
 #secret-keys
 secret.properties
+jwt-secret.properties
 
 # databases
 *.db

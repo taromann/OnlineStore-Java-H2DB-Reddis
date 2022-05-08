@@ -1,0 +1,13 @@
+server:
+  port: 8162
+  servlet:
+    context-path: /web-market-analytics
+integrations:
+  core-service:
+    url: http://localhost:5555/core
+    connect-timeout: 2000
+    read-timeout: 10000
+    write-timeout: 2000
+analytics:
+  requests-parameters:
+    most-popular-ordered-product-quantity: 3

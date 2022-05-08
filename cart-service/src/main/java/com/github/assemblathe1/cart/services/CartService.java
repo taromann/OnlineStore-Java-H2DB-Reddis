@@ -1,7 +1,7 @@
 package com.github.assemblathe1.cart.services;
 
 import com.github.assemblathe1.api.core.ProductDto;
-import com.github.assemblathe1.cart.integrations.ProductsServiceIntegration;
+import com.github.assemblathe1.cart.integrations.CoreServiceIntegration;
 import com.github.assemblathe1.cart.models.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final ProductsServiceIntegration productsServiceIntegration;
+    private final CoreServiceIntegration coreServiceIntegration;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Value("${utils.cart.prefix}")
@@ -36,7 +36,7 @@ public class CartService {
     }
 
     public void addToCart(String cartKey, Long productId) {
-        ProductDto productDto = productsServiceIntegration.findById(productId);
+        ProductDto productDto = coreServiceIntegration.findById(productId);
         execute(cartKey, c -> {
             c.add(productDto);
         });

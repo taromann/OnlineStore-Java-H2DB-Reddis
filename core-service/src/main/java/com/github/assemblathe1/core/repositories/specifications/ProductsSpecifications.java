@@ -5,14 +5,15 @@ import com.github.assemblathe1.core.entities.Product;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ProductsSpecifications {
-    public static Specification<Product> priceGreaterOrEqualsThan(Integer price) {
+    public static Specification<Product> priceGreaterOrEqualsThan(BigDecimal price) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
     }
 
-    public static Specification<Product> priceLessThanOrEqualsThan(Integer price) {
+    public static Specification<Product> priceLessThanOrEqualsThan(BigDecimal price) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
     }
 

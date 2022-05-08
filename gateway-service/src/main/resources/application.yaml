@@ -15,14 +15,22 @@ spring:
               - POST
             allowedHeaders: "*"
       routes:
-        - id: core-service
-          uri: http://localhost:8189/
+        - id: analytics-service
+          uri: http://localhost:8162/
           predicates:
-            - Path=/core/**
+              - Path=/analytics/**
           filters:
-            - StripPrefix=1
-            - PrefixPath=/web-market-core
-            - JwtAuthFilter
+              - StripPrefix=1
+              - PrefixPath=/web-market-analytics
+              - JwtAuthFilter
+        - id: auth-service
+          uri: http://localhost:8188/
+          predicates:
+              - Path=/auth/**
+          filters:
+              - StripPrefix=1
+              - PrefixPath=/web-market-auth
+              - JwtAuthFilter
         - id: cart-service
           uri: http://localhost:8166/
           predicates:
@@ -31,13 +39,13 @@ spring:
             - StripPrefix=1
             - PrefixPath=/web-market-carts
             - JwtAuthFilter
-        - id: auth-service
-          uri: http://localhost:8188/
+        - id: core-service
+          uri: http://localhost:8189/
           predicates:
-            - Path=/auth/**
+            - Path=/core/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/web-market-auth
+            - PrefixPath=/web-market-core
             - JwtAuthFilter
         - id: payment-service
           uri: http://localhost:8165/
@@ -47,7 +55,6 @@ spring:
             - StripPrefix=1
             - PrefixPath=/web-market-payment
             - JwtAuthFilter
-
 jwt:
   secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
 

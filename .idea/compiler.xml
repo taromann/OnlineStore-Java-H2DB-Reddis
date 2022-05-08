@@ -13,16 +13,22 @@
         <module name="online-store" />
         <module name="payment-service" />
         <module name="gateway-service" />
+        <module name="analytics-service" />
         <module name="api" />
         <module name="core-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="analytics-service (1)" target="11" />
+      <module name="analytics_old-service" target="11" />
       <module name="core" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="analytics-service" options="-parameters" />
+      <module name="analytics-service (1)" options="-parameters" />
+      <module name="analytics_old-service" options="-parameters" />
       <module name="authentication-service" options="-parameters" />
       <module name="cart-service" options="-parameters" />
       <module name="core-service" options="-parameters" />

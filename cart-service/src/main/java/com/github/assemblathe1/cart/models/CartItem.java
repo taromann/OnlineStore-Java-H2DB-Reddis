@@ -14,6 +14,7 @@ public class CartItem {
     private Long productId;
     private String productTitle;
     private int quantity;
+    private String pictureLink;
     private BigDecimal pricePerProduct;
     private BigDecimal price;
 
@@ -21,6 +22,7 @@ public class CartItem {
         this.productId = productDto.getId();
         this.productTitle = productDto.getTitle();
         this.quantity = 1;
+        this.pictureLink = productDto.getPictureLink();
         this.pricePerProduct = productDto.getPrice();
         this.price = productDto.getPrice();
     }

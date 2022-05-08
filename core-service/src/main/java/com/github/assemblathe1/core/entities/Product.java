@@ -30,6 +30,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "picture_link")
+    private String pictureLink;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -38,9 +41,10 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Product(Long id, String title, BigDecimal price) {
+    public Product(Long id, String title, BigDecimal price, String pictureLink) {
         this.id = id;
         this.title = title;
         this.price = price;
+        this.pictureLink = pictureLink;
     }
 }

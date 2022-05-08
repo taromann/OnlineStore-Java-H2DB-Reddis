@@ -15,7 +15,9 @@ public class ProductCountConverter {
                 new ProductDto(
                         productCountDto.getProductDto().getId(),
                         productCountDto.getProductDto().getTitle(),
-                        productCountDto.getProductDto().getPrice()),
+                        productCountDto.getProductDto().getPrice(),
+                        productCountDto.getProductDto().getPictureLink()
+                ),
                 productCountDto.getTotal()
         );
     }
@@ -25,7 +27,9 @@ public class ProductCountConverter {
                 new ProductDto(
                         productCount.getProductDto().getId(),
                         productCount.getProductDto().getTitle(),
-                        productCount.getProductDto().getPrice()),
+                        productCount.getProductDto().getPrice(),
+                        productCount.getProductDto().getPictureLink()
+                ),
                 productCount.getTotal()
         );
     }

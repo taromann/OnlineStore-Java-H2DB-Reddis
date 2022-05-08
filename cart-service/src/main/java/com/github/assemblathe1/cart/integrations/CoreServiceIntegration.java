@@ -15,7 +15,7 @@ public class CoreServiceIntegration {
     private final WebClient productServiceWebClient;
 
     public ProductDto findById(Long id) {
-        ProductDto productDto = productServiceWebClient.get() //берем корень микросервиса (вебклаент всегда хранит корень)
+        ProductDto productDto = productServiceWebClient.get() //берем корень микросервиса (WebClient всегда хранит корень)
                 .uri("/api/v1/products/" + id)
                 .retrieve() //ожидаем ответ
                 .onStatus(

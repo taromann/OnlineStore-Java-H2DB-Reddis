@@ -2,19 +2,22 @@
 
     <div class="row g-2">
         <div class="col-6 col-md-2" style="margin-top: 50px">
-            <form novalidate ng-submit ="loadProducts()">
+            <form novalidate ng-submit="loadProducts()">
                 <div class="form-floating input-group-sm">
-                    <input type="text" class="form-control" id="filterTitle" placeholder="" ng-model="filter.title_part">
+                    <input type="text" class="form-control" id="filterTitle" placeholder=""
+                           ng-model="filter.title_part">
                     <label for="filterTitle">Название продукта</label>
                 </div>
                 <p></p>
                 <div class="form-floating input-group-sm">
-                    <input type="number" class="form-control" id="filterMinPrice" placeholder="Мин. цен" ng-model="filter.min_price">
+                    <input type="number" class="form-control" id="filterMinPrice" placeholder="Мин. цен"
+                           ng-model="filter.min_price">
                     <label for="filterMinPrice">Мин. цена</label>
                 </div>
                 <p></p>
                 <div class="form-floating input-group-sm">
-                    <input type="number" class="form-control" id="filterMaxPrice" placeholder="Макс. цена" ng-model="filter.max_price">
+                    <input type="number" class="form-control" id="filterMaxPrice" placeholder="Макс. цена"
+                           ng-model="filter.max_price">
                     <label for="filterMaxPrice">Макс. цена</label>
                 </div>
                 <p></p>
@@ -36,17 +39,17 @@
         <div class="col-sm-6 col-md-10" style="margin-top: 50px">
             <table class="table table-hover">
                 <tr>
-                    <td>ID</td>
-                    <td>Название</td>
-                    <td>Цена</td>
-                    <td></td>
+                    <td class="align-middle">ID</td>
+                    <td class="align-middle">Название</td>
+                    <td class="align-middle">Цена</td>
+                    <td class="align-middle"></td>
                 </tr>
                 <tbody>
                 <tr ng-repeat="p in ProductsPage.content">
-                    <td>{{p.id}}</td>
-                    <td>{{p.title}}</td>
-                    <td>{{p.price}}</td>
-                    <td>
+                    <td class="align-middle">{{p.id}}</td>
+                    <td class="align-middle">{{p.title}}</td>
+                    <td class="align-middle">{{p.price}}</td>
+                    <td class="align-middle">
                         <button class="btn btn-primary position end" ng-click="addToCart(p.id)">Добавить</button>
                     </td>
                 </tr>
@@ -62,4 +65,27 @@
             </nav>
         </div>
     </div>
+
+
+    <p></p>
+    <h3 class="text-center">Сегодня покупают</h3>
+    <p></p>
+    <table class="table table-hover">
+        <tr>
+            <td class="align-middle" ng-repeat="products in MostPopularProducts.content">
+                <div class="ui-a6e" style="transition-duration: 500ms; transform: translateX(0px);">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{products.productDto.title}}</h5>
+                            <img src="https://yandex-images.clstorage.net/eom5U1172/4b4888ef/Wr-g9d-FdF5Mf5u20bB01d0maR8PZ7pKR_GUVXER-t22YbGy46m7m5nM5IKsq-VVFr-Y3X96zkAUCDFLCBmmXs-b9eG7RMW6vN-LtuFg5WVNVtmf_-f7CjfUESTBRBv9QwBQl2afCCnrjqL1ehknQqELSP2_Wo-EoHzynajMo5j6fLPl_ObVyFzum-ITszTFLOc8jM_03pjiEbZyYiT4aIBxkYGAn9rZOywBpzt5dFKR-OvNTyhvUTP_4b1d3VE4iM5CpD10t6ss_fuy0oIm1O2nzs08RM6ZkzE3YFMUiGnAwTFgA11am0i-cgVKOvZgs3vJnF_6fDNBz-M8v44hyipP4pQtZEfbrC1rsCFBZzad59y-3SStidMTJoABxFn74QPBcMC9a4raPrBWG6nF8hJoyX49qL7hwe0T_m58c1sKH8HlPjamGf69ubNhAyYUPQb_ft2XnvvQUJSRI7RrimLC4rChfpvomJzwZui7dQCzS0p_Lblc0eBPwM_-LqIKOt5wVt121iicTFqgUWCGFVznXn9-pLx48FEWIOPEa7gSUaOwUO6aywg9g9YZiXUgYTh4ve9LjCChDCJ8rZ_R2Yi8g_YNxkW63C34IxLRNpVNRO58bHSsqPMh5nEyNZnYYtDjMyKcmvnpbKMW6rimMXDKy72vCk7QMB6h7k-toQi4fZGEj2QmGM6M-SEQA8ak7RctH8wmnyui4qVCsMTq2iAys1PwzAq7WB3T1tt5NmADe4iMbriuIOJdMd6fj7Gr-hwTpg6mdvgMjquiwIJXNw8UTK38tjw4UxG3YkEFqkpDIYGx8e-46sqOsyfoS6WgUMvafb56LXDxzqOMrlxyG4ssIgRdJMf4vB7Ls5FDRgW9tu7tLfavOlFwBzLzpNpqkkCjYJOtmomrvRJkqqqHsEHZ2_08iL0Cgg3Dv_-esMlKn4IHjdY1WC_veqNQADb3_vUNH39UnPnDc0YwwleIM" class="card-img-top" alt="...">
+                            <p class="card-text"></p>
+                            <a href="#" class="btn btn-primary">Добавить в карзину</a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
 </div>

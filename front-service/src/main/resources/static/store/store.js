@@ -32,5 +32,13 @@ angular.module('market-front').controller('storeController', function ($scope, $
             });
     }
 
+    $scope.loadMostPopularProducts = function () {
+        $http.get('http://localhost:5555/analytics/api/v1/analytics?p=1')
+            .then(function (response) {
+                $scope.MostPopularProducts = response.data;
+            });
+    }
+
     $scope.loadProducts();
+    $scope.loadMostPopularProducts();
 });

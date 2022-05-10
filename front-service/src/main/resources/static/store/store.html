@@ -3,6 +3,7 @@
     <div class="row g-2">
         <div class="col-6 col-md-2" style="margin-top: 50px">
             <form novalidate ng-submit="loadProducts()">
+                <label>Фильтры</label>
                 <div class="form-floating input-group-sm">
                     <input type="text" class="form-control" id="filterTitle" placeholder=""
                            ng-model="filter.title_part">
@@ -72,14 +73,14 @@
     <p></p>
     <table class="table table-hover">
         <tr>
-            <td class="align-middle" ng-repeat="products in MostPopularProducts.content">
+            <td ng-repeat="products in MostPopularProducts.content">
                 <div class="ui-a6e" style="transition-duration: 500ms; transform: translateX(0px);">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 9rem;">
                         <div class="card-body">
                             <h5 class="card-title">{{products.productDto.title}}</h5>
                             <img src={{products.productDto.pictureLink}} class="card-img-top" alt="...">
                             <p class="card-text"></p>
-                            <button class="btn btn-primary position end" ng-click="addToCart(products.productDto.id)">Добавить в карзину</button>
+                            <button class="btn btn-primary position end" ng-click="addToCart(products.productDto.id)">Добавить</button>
                         </div>
                     </div>
                 </div>

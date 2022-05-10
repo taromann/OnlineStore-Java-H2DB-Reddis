@@ -8,6 +8,7 @@ spring:
     gateway:
       globalcors:
         corsConfigurations:
+          #          любые запросы куда бы ни слали пропускаем с localhost:3000, только GET и POST, все хеадеры тоже доступны
           '[/**]':
             allowedOrigins: "http://localhost:3000"
             allowedMethods:
@@ -22,6 +23,7 @@ spring:
           filters:
               - StripPrefix=1
               - PrefixPath=/web-market-analytics
+            #           Указываем созданный применяемый класс фильтра
               - JwtAuthFilter
         - id: auth-service
           uri: http://localhost:8188/

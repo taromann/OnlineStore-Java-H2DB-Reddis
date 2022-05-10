@@ -11,26 +11,32 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+// Прогоняет чрез себя все запросы и делает валидацию и преобразование токена.
+// Если хотим чтоб приходящий запрос модифицировался, то делаем extends AbstractGatewayFilterFactory.
+// После чего добавляем его в application.yaml
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
-
+    // если мы хотим фильтры в .yaml файле то такая структура
+    // инжектим чтобы парсить и проверять токены
     private final JwtUtil jwtUtil;
-
+    // подключаем к application.yaml (не надо разбираться зачем конфиг класс, просто такая структура)
     public JwtAuthFilter(JwtUtil jwtUtil) {
         super(Config.class);
         this.jwtUtil = jwtUtil;
     }
 
+    // когда запрос проходит через нас то
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
-            ServerHttpRequest request = exchange.getRequest();
+            ServerHttpRequest request = exchange.getRequest(); // получаем ссылку на request
             if (!isAuthMissing(request)) {
                 final String token = getAuthHeader(request);
+                System.out.println(token);
                 if (jwtUtil.isInvalid(token)) {
                     return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
                 }
-                populateRequestWithHeaders(exchange, token);
+                populateRequestWithHeaders(exchange, token);// достаем пользователя из токена
             }
             return chain.filter(exchange);
         };
@@ -62,8 +68,8 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
         Claims claims = jwtUtil.getAllClaimsFromToken(token);
         exchange.getRequest().mutate()
-                .header("username", claims.getSubject())
-//                .header("role", String.valueOf(claims.get("role")))
+                .header("username", claims.getSubject())// в наш запрос добавляем header нашего запроса информацию о юзере из токена (чтоб остальные сервисы знали от кого запрос)
+//                .header("role", String.valueOf(claims.get("role")))  // - если хотим добавить роли
                 .build();
     }
 }

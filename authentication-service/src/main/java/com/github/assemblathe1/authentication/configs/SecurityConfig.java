@@ -21,17 +21,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().disable()
+                .csrf().disable()  // Если нет генерации фронта на бэке
+                .cors().disable()  // Блок правил безопасности
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // Отключаем сессии для безопасности (контекст не привязан к сессии)
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                .exceptionHandling() // Обработка исключений
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)); // отправляем ошибку неавторизации на фрон,. а он сам решает что делать
     }
 
     @Bean
